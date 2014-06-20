@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
 public class SnakeLoop implements Runnable {
 
     private Snake snake;
-    private boolean running = false;
+    public boolean running = false;
     private long pauseSpeed;
     private SnakePanel snakePanel;
     private int modo;
@@ -56,6 +56,7 @@ public class SnakeLoop implements Runnable {
             switch (snake.checkMover()) {
                 case 1:
                     snake.mover();
+                    snakePanel.setMovimiento(true);
                     break;
                 case 2:
                     stop();
@@ -69,6 +70,7 @@ public class SnakeLoop implements Runnable {
                         setPauseSpeed();
                     }
                     snake.mover();
+                    snakePanel.setMovimiento(true);
                     snake.generarFruta();
                     break;
                 default:

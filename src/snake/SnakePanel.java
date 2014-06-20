@@ -20,6 +20,7 @@ public class SnakePanel extends javax.swing.JPanel {
      */
     private Snake snake;
     private final int TAM_CASILLA = 20;
+    private boolean movimiento = true;
 
     public SnakePanel() {
         initComponents();
@@ -29,6 +30,14 @@ public class SnakePanel extends javax.swing.JPanel {
         this.snake = snake;
     }
 
+    public boolean isMovimiento() {
+        return movimiento;
+    }
+
+    public void setMovimiento(boolean movimiento) {
+        this.movimiento = movimiento;
+    }
+    
     @Override
     public void paint(Graphics graphics) {
         super.paint(graphics);
@@ -36,7 +45,7 @@ public class SnakePanel extends javax.swing.JPanel {
             for (int f = 0; f < snake.getTamFila(); f++) {
                 for (int c = 0; c < snake.getTamCol(); c++) {
                     char contenido = snake.getTablero()[f][c];
-                    
+
                     //Lo que pintara en cada caso de lo que haya en casa casilla del tableo
                     switch (contenido) {
                         case Snake.VACIO:
@@ -100,19 +109,30 @@ public class SnakePanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
-        switch (evt.getKeyCode()) {
-            case KeyEvent.VK_RIGHT:
-                snake.setSentidoMov(Snake.DERECHA);
-                break;
-            case KeyEvent.VK_LEFT:
-                snake.setSentidoMov(Snake.IZQUIERDA);
-                break;
-            case KeyEvent.VK_UP:
-                snake.setSentidoMov(Snake.ARRIBA);
-                break;
-            case KeyEvent.VK_DOWN:
-                snake.setSentidoMov(Snake.ABAJO);
-                break;
+        if (movimiento) {
+            movimiento = false;
+            switch (evt.getKeyCode()) {
+                case KeyEvent.VK_RIGHT:
+                    if (snake.getSentidoMov() != Snake.IZQUIERDA) {
+                        snake.setSentidoMov(Snake.DERECHA);
+                    }
+                    break;
+                case KeyEvent.VK_LEFT:
+                    if (snake.getSentidoMov() != Snake.DERECHA) {
+                        snake.setSentidoMov(Snake.IZQUIERDA);
+                    }
+                    break;
+                case KeyEvent.VK_UP:
+                    if (snake.getSentidoMov() != Snake.ABAJO) {
+                        snake.setSentidoMov(Snake.ARRIBA);
+                    }
+                    break;
+                case KeyEvent.VK_DOWN:
+                    if (snake.getSentidoMov() != Snake.ARRIBA) {
+                        snake.setSentidoMov(Snake.ABAJO);
+                    }
+                    break;
+            }
         }
     }//GEN-LAST:event_formKeyPressed
 
